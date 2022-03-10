@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--<configuration>-->
+
+<!--    <typeAliases>-->
+<!--        <package name="pojo"/>-->
+<!--    </typeAliases>-->
+<!--    <environments default="development">-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql:///db1?useSSL=false&amp;useServerPrepStmts=true"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+<!--    <mappers>-->
+<!--        <mapper resource="mapper.xml"/>-->
+<!--    </mappers>-->
+<!--</configuration>-->
+<configuration>
+    <!-- 配置环境 -->
+    <!-- 选择配置的数据库 -->
+    <environments default="computer_mysql">
+        <environment id="computer_mysql">
+            <!-- jdbc事务管理 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 数据源 -->
+            <!-- 用mabatis自带POOLED -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/db1?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 配置映射文件的路径 -->
+    <mappers>
+        <mapper resource="Mapper/BrandMapper.xml"/>
+
+    </mappers>
+</configuration>

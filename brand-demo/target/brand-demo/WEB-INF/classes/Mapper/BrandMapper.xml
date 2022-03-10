@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper.BrandMapper">
+
+    <insert id="add">
+        insert into db1.tb_brand(id, brand_name, company_name, ordered, description, status) VALUE
+        (null,#{brand_name},#{company_name},#{ordered},#{description},#{status})
+    </insert>
+    <update id="updata">
+        update db1.tb_brand set brand_name=#{brand_name},company_name=#{company_name},ordered=#{ordered},description=#{description},status=#{status}
+        where id=#{id};
+    </update>
+
+    <delete id="deleteByIds">
+        delete from db1.tb_brand where id in
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteById">
+        delete from db1.tb_brand where id=#{id};
+    </delete>
+
+
+    <select id="selectAll" resultType="Pojo.Brand">
+        select * from db1.tb_brand;
+    </select>
+
+<!--    <select id="selectByPage" resultType="Pojo.Brand">-->
+<!--        select * from db1.tb_brand LIMIT #{begin},#{size};-->
+<!--    </select>-->
+
+<!--    <select id="selectTotal" resultType="java.lang.Integer">-->
+<!--        select  COUNT(*) from db1.tb_brand;-->
+
+<!--    </select>-->
+
+    <select id="selectByPageAndCondition" resultType="Pojo.Brand">
+        select * from db1.tb_brand
+        <where>
+            <if test="brand.brand_name != '' and brand.brand_name!=null">
+                and brand_name like #{brand.brand_name}
+            </if>
+            <if test="brand.company_name != '' and brand.company_name!=null">
+                and company_name like #{brand.company_name}
+            </if>
+            <if test="brand.status!=null and brand.status !=''">
+                and status = #{brand.status}
+            </if>
+        </where>
+        LIMIT #{begin},#{size};
+    </select>
+
+    <select id="selectTotalCondition" resultType="java.lang.Integer">
+        select  COUNT(*) from db1.tb_brand
+        <where>
+            <if test="brand_name != '' and brand_name!=null">
+                and brand_name like #{brand_name}
+            </if>
+            <if test="company_name != '' and company_name!=null">
+                and company_name like #{company_name}
+            </if>
+            <if test="status != null and status !='' ">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+</mapper>
